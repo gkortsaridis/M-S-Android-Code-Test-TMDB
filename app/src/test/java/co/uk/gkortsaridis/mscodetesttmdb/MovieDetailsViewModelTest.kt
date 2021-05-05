@@ -42,7 +42,7 @@ class MovieDetailsViewModelTest {
     private val movieDetailsObservable = Observable.just(MovieDetails())
     private val movieDetailsSuccess = MutableLiveData<Resource<MovieDetails>>()
     private val movieDetailsError = MutableLiveData<Resource<MovieDetails>>()
-    private val customError = RuntimeException("Custom Error")
+    private val customError = RuntimeException("Custom Error msg")
 
     private val collectionDetailsObservable = Observable.just(MovieCollection())
     private val collectionDetailsSuccess = MutableLiveData<Resource<MovieCollection>>()
