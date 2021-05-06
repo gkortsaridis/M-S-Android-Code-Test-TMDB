@@ -5,8 +5,9 @@ import co.uk.gkortsaridis.mscodetesttmdb.models.ResponseMovieCollection
 import co.uk.gkortsaridis.mscodetesttmdb.utils.APP_CONSTANTS
 import co.uk.gkortsaridis.mscodetesttmdb.utils.ApiClient
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class MovieDetailsRepository {
+class MovieDetailsRepository @Inject constructor(){
 
     fun getMovieDetails(movieId: Long): Observable<MovieDetails> {
         return ApiClient.api.getMovieDetails(movieId, APP_CONSTANTS.TMDB_API_KEY)

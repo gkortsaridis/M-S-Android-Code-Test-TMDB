@@ -7,12 +7,15 @@ import co.uk.gkortsaridis.mscodetesttmdb.models.MovieDetails
 import co.uk.gkortsaridis.mscodetesttmdb.models.Resource
 import co.uk.gkortsaridis.mscodetesttmdb.models.ResponseMovieCollection
 import co.uk.gkortsaridis.mscodetesttmdb.repositories.MovieDetailsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
+import javax.inject.Inject
 
-class MovieDetailsViewModel(private val movieDetailsRepository: MovieDetailsRepository): ViewModel() {
+@HiltViewModel
+class MovieDetailsViewModel @Inject constructor(private val movieDetailsRepository: MovieDetailsRepository): ViewModel() {
 
     private val movieDetails = MutableLiveData<Resource<MovieDetails>>()
     private val movieCollection = MutableLiveData<Resource<ResponseMovieCollection>>()

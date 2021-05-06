@@ -1,11 +1,11 @@
 package co.uk.gkortsaridis.mscodetesttmdb.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.uk.gkortsaridis.mscodetesttmdb.R
 import co.uk.gkortsaridis.mscodetesttmdb.models.MovieDetails
@@ -13,13 +13,14 @@ import co.uk.gkortsaridis.mscodetesttmdb.models.MovieResult
 import co.uk.gkortsaridis.mscodetesttmdb.models.Status
 import co.uk.gkortsaridis.mscodetesttmdb.utils.MovieClickListener
 import co.uk.gkortsaridis.mscodetesttmdb.viewmodels.MovieDetailsViewModel
-import co.uk.gkortsaridis.mscodetesttmdb.viewmodels.ViewModelFactory
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_movie_details.*
 
+@AndroidEntryPoint
 class MovieDetailsActivity : AppCompatActivity(), MovieClickListener {
 
-    private lateinit var viewModel: MovieDetailsViewModel
+    private val viewModel: MovieDetailsViewModel by viewModels()
     private lateinit var adapter: MovieCollectionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,6 @@ class MovieDetailsActivity : AppCompatActivity(), MovieClickListener {
         collection_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         collection_rv.adapter = adapter
 
-        viewModel = ViewModelProvider(this, ViewModelFactory()).get(MovieDetailsViewModel::class.java)
         viewModel.getMovieDetails(movieId).observe(this, {
             when(it.status) {
                 Status.LOADING -> { /* Display meaningful loading message*/ }

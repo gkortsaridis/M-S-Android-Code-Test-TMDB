@@ -6,11 +6,14 @@ import androidx.lifecycle.ViewModel
 import co.uk.gkortsaridis.mscodetesttmdb.models.MovieResult
 import co.uk.gkortsaridis.mscodetesttmdb.models.Resource
 import co.uk.gkortsaridis.mscodetesttmdb.repositories.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val mainRepository: MainRepository) : ViewModel() {
 
     private val nowPlayingMovies = MutableLiveData<Resource<ArrayList<MovieResult>>>()
     private val compositeDisposable = CompositeDisposable()

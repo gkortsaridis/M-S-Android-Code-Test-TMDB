@@ -1,23 +1,24 @@
 package co.uk.gkortsaridis.mscodetesttmdb.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import co.uk.gkortsaridis.mscodetesttmdb.R
-import co.uk.gkortsaridis.mscodetesttmdb.utils.MovieClickListener
-import co.uk.gkortsaridis.mscodetesttmdb.viewmodels.MainViewModel
-import co.uk.gkortsaridis.mscodetesttmdb.viewmodels.ViewModelFactory
-import androidx.lifecycle.Observer
 import co.uk.gkortsaridis.mscodetesttmdb.models.MovieResult
 import co.uk.gkortsaridis.mscodetesttmdb.models.Status
+import co.uk.gkortsaridis.mscodetesttmdb.utils.MovieClickListener
+import co.uk.gkortsaridis.mscodetesttmdb.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MovieClickListener {
 
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: NowPlayingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity(), MovieClickListener {
         now_playing_rv.adapter = adapter
 
         //ViewModel & Observing Setup
-        mainViewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
         mainViewModel.getNowPlayingMovies().observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> { updateMovieList(it.data ?: arrayListOf()) }
